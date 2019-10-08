@@ -40,6 +40,7 @@ def server(log_buffer=sys.stderr):
             conn, addr = sock.accept()
             try:
                 print('connection - {0}:{1}'.format(*addr), file=log_buffer)
+                conn.sendall("ready to receieve messages".encode('utf8'))
 
                 # the inner loop will receive messages sent by the client in
                 # buffers.  When a complete message has been received, the
@@ -68,8 +69,8 @@ def server(log_buffer=sys.stderr):
                     # message is a trick we learned in the lesson: if you don't
                     # remember then ask your classmates or instructor for a clue.
                     # :)
-
-                    if data: # honestly no idea if this works
+                    print(type(data))
+                    if data != 0: # honestly no idea if this works
                         break
 
 
@@ -80,7 +81,7 @@ def server(log_buffer=sys.stderr):
                 # TODO: When the inner loop exits, this 'finally' clause will
                 #       be hit. Use that opportunity to close the socket you
                 #       created above when a client connected.
-                server_socket.close()
+                sock.close()
                 print(
                     'echo complete, client connection closed', file=log_buffer
                 )
