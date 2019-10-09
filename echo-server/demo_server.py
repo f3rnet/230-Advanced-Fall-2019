@@ -10,9 +10,30 @@ server_socket.listen(1)
 connection, client_address = server_socket.accept()
 
 buffer_size = 4096
-received_message = connection.recv(buffer_size)
 
-print("Client says: {}".format(received_message.decode()))
+connections = []
 
-connection.sendall("message received".encode('utf8'))
+while True:
+    try:
+        connection, client_address = server_socket.accept()
+        connections.append(connection)
+    except BlockingIOError:
+        pass
+
+    received_messages = []
+    for connection in connections:
+        try:
+            received_message = connection.recv(4096)
+        except BlockingIOError:
+            received_message = None
+
+        if received_message:
+            print("Client says: {}".format(received_message.decode()))
+            received_message.append(received_message)
+
+        for connection in connections:
+            for received_message in received_message:
+                connection.sendall(received_message)
+                
+time.sleep(1)
 
