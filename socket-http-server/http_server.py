@@ -91,14 +91,15 @@ def response_path(path):
 
     """
 
+
     # TODO: Raise a NameError if the requested content is not present
     # under webroot.
-    try:
-        os.path.isdir(path)
+    path = os.path.join('webroot', path.strip('/'))
+
+    if not os.path.lexists(path):
         # os.path.relpath(path)
-        # os.path.lexists(path)
-    except Exception as NameError:
-         response = response_not_found()
+        # os.path.isdir(path)
+        raise NameError
 
 
 
@@ -114,17 +115,27 @@ def response_path(path):
     # mime_type = b"not implemented"
     
 
-    if mimetypes.guess_type(path)[0] == 'text/directory':
-        content = os.listdir(b''+path)
-    else:
-        try:
-            content = open(path, 'rb')
-        except (IsADirectoryError, FileNotFoundError):
-            response = response_not_found()
-        content = os.listdir(path)
-        mime_type = mimetypes.guess_type(path)[0]
+    # if mimetypes.guess_type(path)[0] == 'text/directory':
+    #     content = os.listdir(b''+path)
+    # else:
+    #     try:
+    #         content = open(path, 'rb')
+    #     except (IsADirectoryError, FileNotFoundError):
+    #         response = response_not_found()
+    #     content = os.listdir(path)
+    #     mime_type = mimetypes.guess_type(path)[0]
 
-    return bytes(content), mime_type
+    if os.path.isdir(path):
+        mime_type = b"text/plain"
+        content = "\r\n".join(os.listdir(path)).encode()
+
+    if os.path.isfile(path):
+        filename, extension = os.path.splitext(path)
+        mime_type = mimetypes.types_map[extension].encode()
+        with open(path, 'rb') as f:
+            content = f.read()
+
+    return content, mime_type
 
 
 def server(log_buffer=sys.stderr):
