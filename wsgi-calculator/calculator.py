@@ -40,19 +40,25 @@ To submit your homework:
 
 
 """
+
+import traceback
+import operator
+from functools import reduce
+
+
 def index():
-  body = '''
-  <h1>ABOUT</h1>
-  <p>Welcome! {}</p>
-  <p>This is a calculator and we are out here calculating.</p>
-  <p>Ex usage:<ul>   
-    <li>* http://localhost:8080/multiply/3/5  => 15</ul>
-    <li>* http://localhost:8080/add/23/42  => 65</ul>
-    <li>* http://localhost:8080/subtract/23/42  => -19</ul>
-    <li>* http://localhost:8080/divide/22/11  => 2</p></ul>
-  </ul>
-  '''.format(datetime.datetime.now().strftime("%H:%M:%S"))
-  return body
+    body = """
+    <h1>ABOUT</h1>
+    <p>Welcome!</p>
+    <p>This is a calculator and we are out here calculating.</p>
+    <p>Ex usage:<ul>   
+      <li>* http://localhost:8080/multiply/3/5  => 15</ul>
+      <li>* http://localhost:8080/add/23/42  => 65</ul>
+      <li>* http://localhost:8080/subtract/23/42  => -19</ul>
+      <li>* http://localhost:8080/divide/22/11  => 2</p></ul>
+    </ul>
+    """
+    return body
 
 
 def add(*args):
@@ -158,8 +164,6 @@ def application(environ, start_response):
     
 
 if __name__ == '__main__':
-    # TODO: Insert the same boilerplate wsgiref simple
-    # server creation that you used in the book database.
     from wsgiref.simple_server import make_server
     srv = make_server('localhost', 8080, application)
     srv.serve_forever()
