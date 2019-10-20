@@ -51,11 +51,11 @@ def index():
     <h1>ABOUT</h1>
     <p>Welcome!</p>
     <p>This is a calculator and we are out here calculating.</p>
-    <p>Ex usage:<ul>   
-      <li>* http://localhost:8080/multiply/3/5  => 15</ul>
-      <li>* http://localhost:8080/add/23/42  => 65</ul>
-      <li>* http://localhost:8080/subtract/23/42  => -19</ul>
-      <li>* http://localhost:8080/divide/22/11  => 2</p></ul>
+    <ul>Ex usage:<ul>  
+      <li>* <a href=http://localhost:8080/multiply/3/5> href=http://localhost:8080/multiply/3/5>=> 15</a></li>
+      <li>* <a href=http://localhost:8080/add/23/42> http://localhost:8080/add/23/42=> 65</a></li>
+      <li>* <a href=http://localhost:8080/subtract/23/42> http://localhost:8080/subtract/23/42=> -19</a></li>
+      <li>* <a href=http://localhost:8080/divide/22/11> http://localhost:8080/divide/22/11=> 2</a></li>
     </ul>
     """
     return body
