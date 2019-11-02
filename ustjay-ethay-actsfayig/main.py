@@ -30,7 +30,7 @@ def home():
     text_to_translate = get_fact()
     results = get_piglatin(text_to_translate)
     return "{}<br><br><a href='{}'>{}</a>".format(results[0], results[1], results[1])
-    # return "FILL ME!"
+    
 
 
 if __name__ == "__main__":
