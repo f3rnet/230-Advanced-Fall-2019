@@ -1,6 +1,4 @@
 from django.shortcuts import render
-
-from django.shortcuts import render
 from django.http import Http404
 from polling.models import Poll
 
