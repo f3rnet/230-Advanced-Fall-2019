@@ -1,0 +1,19 @@
+{% extends "base.html" %}
+
+{% block content %}
+<h1>My Blog Login</h1>
+<!-- 
+<form action="" method="POST">{% csrf_token %}
+    {{ form.as_p }}
+    <p><input type="submit" value="Log In"></p>
+</form> 
+-->
+{% if user.is_authenticated %}
+<p>Logged as {{ user.username }}</p>
+<a class="btn btn-primary" href="{% url 'logout' %}">Logout</a>
+{% else %}
+<a class="btn btn-primary" href="{% url 'social:begin' 'google-oauth2' %}">
+    Login
+</a>
+{% endif %}
+{% endblock %}
